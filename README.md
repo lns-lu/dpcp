@@ -83,7 +83,7 @@ A complete analysis can be executed by the function *dPCP()*.
 Alternatively, a step by step analysis can be carried out following the
 abovementioned pipeline.
 
-dPCP is available also as web app accessible through a web browser at (link).
+dPCP is available also as web app accessible through a web browser at (to be updated after deployment).
 
 
 ## Quality control
@@ -100,6 +100,10 @@ The ideal combination of input values is chosen according to the following crite
 
 An example of *dbscan_combination* output is showed in Figure 1.
 
+2. DBSCAN analysis of reference. At the end of cluster analysis, the results of DBSCAN analysis of each reference can be represented in a scatterplot using the S3 method *plot*. 
+3. Identification of clusters centroid. The S3 method *plot* can be used also to verify the correct position of all cluster centroids. If the predicted position of the centroid of multi-target clusters does not match the real position of centroids, cross-reaction between probes or poor assay optimization could be the cause (Fig. 2).
+4. C-means and rain analysis. The S3 method *plot* is available also to show the scatterplot of c-means and rain analysis.
+
 ![](vignettes/Figure1.png)
 **Fig. 1: Examples of the output plots of dbscan_combination().** Each graph represents the DBSCAN analysis performed with different combinations of input parameters eps and minPts. Assembled clusters are represented with colored dots; different colors indicate distinct clusters whereas grey dots show not-clustered elements.
 The combinations (A), (B), (C), and (D) of DBSCAN input parameters are not suitable for a dPCP analysis because:
@@ -108,10 +112,6 @@ The combinations (A), (B), (C), and (D) of DBSCAN input parameters are not suita
 (C)	One of the single-target clusters (purple) shows multiple subclusters.  
 (D)	In one of the single-target clusters (green), the identified cluster is not centered in the cluster centroid.
 The combinations (E) and (F) identified the empty partitions cluster and all single-target clusters, therefore they are suitable for the analysis.
-
-2. DBSCAN analysis of reference. At the end of cluster analysis, the results of DBSCAN analysis of each reference can be represented in a scatterplot using the S3 method *plot*. 
-3. Identification of clusters centroid. The S3 method *plot* can be used also to verify the correct position of all cluster centroids. If the predicted position of the centroid of multi-target clusters does not match the real position of centroids, cross-reaction between probes or poor assay optimization could be the cause (Fig. 2).
-4. C-means and rain analysis. The S3 method *plot* is available also to show the scatterplot of c-means and rain analysis.
 
 ![](vignettes/Figure2.png)
 **Fig. 2: Quality control of the centroids coordinates prediction.**
@@ -123,12 +123,13 @@ The combinations (E) and (F) identified the empty partitions cluster and all sin
 The results and analysis information can be exported to a csv file with the
 function *export_csv()*. The exported file consists of three tables:
 
--	Reference samples table reporting the following information:
+Reference samples table reporting the following information:
 -	Reference: reference ID;
 -	Quality: quality threshold;
 -	eps: value used for the reference DBSCAN analysis;
 -	minPts: values used for the reference DBSCAN analysis;
--	Results table reporting the following information:
+
+Results table reporting the following information:
 -	Sample: sample name and ID;
 -	Target: target name;
 -	Negative reactions: number of negative reactions;
@@ -146,7 +147,8 @@ function *export_csv()*. The exported file consists of three tables:
 -	Dilution: dilution factor;
 -	Quality: quality threshold;
 -	Reference: reference ID;
--	Replicates results table reporting the following information:
+
+Replicates results table reporting the following information:
 -	Sample: sample name and chip ID;
 -	Target: target name;
 -	Copies/ul: target concentration;
