@@ -1,7 +1,19 @@
----
-title: 'Digital PCR Cluster Predictor: a universal R-package and shiny app for the
-  automated analysis of multiplex digital PCR data'
----
+# Digital PCR Cluster Predictor: a universal R-package and shiny app for the automated analysis of multiplex digital PCR data
+
+Developed by Alfonso De Falco at Laboratoire national de santé, Luxembourg
+
+## Installation
+To use this package on your computer you need first to instal [R](https://cran.r-project.org/) and [RStudio](https://rstudio.com/).
+The package can be either downloaded from [CRAN](https://CRAN.R-project.org/package=dPCP) or from this GitHub repository:
+```
+#CRAN installation
+install.packages("dPCP")
+
+#GitHub installation
+install.packages("devtools")
+library(devtools)
+install_github("lns-lu/dpcp")
+```
 
 ## Introduction
 Digital polymerase chain reaction (dPCR) is a PCR-based technology that enables
@@ -88,7 +100,7 @@ The ideal combination of input values is chosen according to the following crite
 
 An example of *dbscan_combination* output is showed in Figure 1.
 
-![Examples of output plots of dbscan_combination.](assets/Figure1.png)
+![](vignettes/Figure1.png)
 **Fig. 1: Examples of the output plots of dbscan_combination().** Each graph represents the DBSCAN analysis performed with different combinations of input parameters eps and minPts. Assembled clusters are represented with colored dots; different colors indicate distinct clusters whereas grey dots show not-clustered elements.
 The combinations (A), (B), (C), and (D) of DBSCAN input parameters are not suitable for a dPCP analysis because:
 (A)	None of the single-target clusters is identified.  
@@ -98,10 +110,10 @@ The combinations (A), (B), (C), and (D) of DBSCAN input parameters are not suita
 The combinations (E) and (F) identified the empty partitions cluster and all single-target clusters, therefore they are suitable for the analysis.
 
 2. DBSCAN analysis of reference. At the end of cluster analysis, the results of DBSCAN analysis of each reference can be represented in a scatterplot using the S3 method *plot*. 
-4. Identification of clusters centroid. The S3 method *plot* can be used also to verify the correct position of all cluster centroids. If the predicted position of the centroid of multi-target clusters does not match the real position of centroids, cross-reaction between probes or poor assay optimization could be the cause (Fig. 2).
-5. C-means and rain analysis. The S3 method *plot* is available also to show the scatterplot of c-means and rain analysis.
+3. Identification of clusters centroid. The S3 method *plot* can be used also to verify the correct position of all cluster centroids. If the predicted position of the centroid of multi-target clusters does not match the real position of centroids, cross-reaction between probes or poor assay optimization could be the cause (Fig. 2).
+4. C-means and rain analysis. The S3 method *plot* is available also to show the scatterplot of c-means and rain analysis.
 
-![Quality control of the centroids position prediction.](assets/Figure2.png)
+![](vignettes/Figure2.png)
 **Fig. 2: Quality control of the centroids coordinates prediction.**
 
 (A)	The prediction of coordinates of multi-target cluster centroid did not match the real position. The shift of centroid position can be the consequence of cross-reactive probes or poor assay optimization. 
@@ -117,11 +129,10 @@ function *export_csv()*. The exported file consists of three tables:
 -	eps: value used for the reference DBSCAN analysis;
 -	minPts: values used for the reference DBSCAN analysis;
 -	Results table reporting the following information:
-    -	Sample: sample name and ID;
+-	Sample: sample name and ID;
 -	Target: target name;
 -	Negative reactions: number of negative reactions;
--	Total reactions: number of total reactions with quality higher than the
-threshold;
+-	Total reactions: number of total reactions with quality higher than the threshold;
 -	lambda: average number of copies per reaction;
 -	Lower CI lambda: lower 95 % confidence interval of lambda;
 -	Upper CI lambda: upper 95 % confidence interval of lambda;
@@ -129,23 +140,19 @@ threshold;
 -	Lower CI copies/ul: lower 95 % confidence interval of target concentration;
 -	Upper CI copies/ul: upper 95 % confidence interval of target concentration;
 -	Copies/ul at sample dilution: target concentration before dilution;
--	Lower CI copies/ul at sample dilution: lower 95 % confidence interval of
-Copies/ul at sample dilution;
--	Upper CI copies/ul at sample dilution: upper 95 % confidence interval of
-Copies/ul at sample dilution;
--	Precision: size of the confidence interval for distinguishing between two
-sample concentrations at a given confidence level;
+-	Lower CI copies/ul at sample dilution: lower 95 % confidence interval of Copies/ul at sample dilution;
+-	Upper CI copies/ul at sample dilution: upper 95 % confidence interval of Copies/ul at sample dilution;
+-	Precision: size of the confidence interval for distinguishing between two sample concentrations at a given confidence level;
 -	Dilution: dilution factor;
 -	Quality: quality threshold;
 -	Reference: reference ID;
 -	Replicates results table reporting the following information:
-    -	Sample: sample name and chip ID;
+-	Sample: sample name and chip ID;
 -	Target: target name;
 -	Copies/ul: target concentration;
 -	Lower CI copies/ul: lower 95 % confidence interval of target concentration;
 -	Upper CI copies/ul: upper 95 % confidence interval of target concentration;
--	Precision: size of the confidence interval for distinguishing between two
-sample           concentrations at a given confidence level;
+-	Precision: size of the confidence interval for distinguishing between two sample concentrations at a given confidence level;
 -	No of replicates: number of replicates.
 
 A summary report can be generated with the function *report_pdf()*. 
@@ -153,10 +160,8 @@ The output is a pdf file containing:
     
 -	the plot of dPCP clustering analysis, 
 -	the sample quality threshold and dilution; 
--	the reference ID, quality threshold and input parameters of DBSCAN
-analysis;
--	a table containing the same information reported in the Results table of the
-abovementioned csv file.
+-	the reference ID, quality threshold and input parameters of DBSCAN analysis;
+-	a table containing the same information reported in the Results table of the abovementioned csv file.
 
 When the shiny-based function *manual_correction()* is used, the results tables and pdf report can be exported directly within the shiny window clicking the "Export data" button.
 
